@@ -12,19 +12,17 @@ echo -e "\033[0;34mThis script shall install opencv-python and its dependencies 
 
 sleep 3
 
-if [ "$EUID" -ne 0 ]
-  then echo -e "\033[0;31m Please run as root \033[0m"
-  echo "Exiting"
-  exit 1
-fi
-
 pyVersion="$(python -c 'import sys; print(".".join(map(str, sys.version_info[:3])))')"
 
 echo -e "\033[0;34mPython Version: $pyVersion\033[0m" 
 
 apt-get update || echo -e "\033[0;31m Please reboot your system and try again \033[0m"
 
-apt-get install opencv-python opencv-contrib-python numpy scipy -y || (echo -e "\033[0;31m Error Installing , Please Try Again\033[0m")
+pip install opencv-python
+
+pip install opencv-contrib-python
+
+pip install numpy scipy 
 
 facePath="$(dpkg -L opencv-python  | grep haarcascade_frontalface_default)"
 
